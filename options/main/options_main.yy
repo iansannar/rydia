@@ -1,0 +1,16 @@
+{
+  "option_gameguid": "e2f44191-f4bf-4010-9f94-d51534d1bce5",
+  "option_game_speed": 240,
+  "option_mips_for_3d_textures": false,
+  "option_draw_colour": 4294967295,
+  "option_window_colour": 255,
+  "option_steam_app_id": "0",
+  "option_sci_usesci": false,
+  "option_author": "Ian Sannar",
+  "option_lastchanged": "18 November 2020 7:02:55",
+  "option_spine_licence": false,
+  "resourceVersion": "1.2",
+  "name": "Main",
+  "tags": [],
+  "resourceType": "GMMainOptions",
+}
