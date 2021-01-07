@@ -16,7 +16,7 @@ update_camera();
 
 if mouse_check_button_pressed(mb_left) {
 	//var l = instance_create_layer(mouse_x, mouse_y, layer_get_id("instances"), noise_test);
-	var l = create(Object4);
+	var l = create(Object5);
 	l.x = mouse_x;
 	l.y = mouse_y;
 }
