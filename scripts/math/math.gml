@@ -383,7 +383,7 @@ function chance(probability) {
 ///@func gauss(standard_deviation)
 ///@desc Returns a random number following a normal distribution.
 ///@param {real} standard_deviation The standard deviation of the distribution.
-///@returns {sample} A sample from the normal distribution.
+///@returns {real} sample A sample from the normal distribution.
 function gauss(standard_deviation) {
 	var u, v, s;
 	do {
@@ -395,14 +395,20 @@ function gauss(standard_deviation) {
 	return u * s * standard_deviation / 2;
 }
 
-
+///@func noise(n, p)
+///@desc One-dimensional improved Perlin Noise function.
+///@param {real} n (?) Input coordinate for the noise function.
+///@param {real} p (?) The period of the noise; or rather, the noise repeats every p units.
+///@returns {real} A sample of the smooth noise.
 function noise(n, p) {
-	///@func fade(t)
+	///@func smoothstep(val1, val2, amount)
 	///@desc Improved Perlin Noise smooth interpolation function.
-	///@param {real} t
+	///@param {real} val1
+	///@param {real} val2
+	///@param {real} amount 
 	///@returns {real} Interpolated value.
-	function fade(t) {
-		return 6 * power(t, 5) - 15 * power(t, 4) + 10 * power(t, 3);
+	function smoothstep(val1, val2, t) {
+		return lerp(val1, val2, 6 * power(t, 5) - 15 * power(t, 4) + 10 * power(t, 3));
 	}
 	
 	var seed = random_get_seed();
@@ -421,7 +427,7 @@ function noise(n, p) {
 	random_set_seed(seed);
 	var weight0 = relative_position;
 	var weight1 = weight_position;
-	var sample = lerp(gradient0 * weight0, gradient1 * weight1, relative_position);
+	var sample = smoothstep(gradient0 * weight0, gradient1 * weight1, relative_position);
 	return sample;
 }
 
@@ -431,6 +437,17 @@ function noise(n, p) {
 ///@returns {real} A number modified by the sigmoid function.
 function sigmoid(a) {
 	return 1 / (1 + power(e, -a * e));
+}
+
+///@func bezier(val1, val2, control_point, t)
+///@desc A simple quadratic bezier curve interpolation function.
+///@param {real} val1 The starting value to interpolate from.
+///@param {real} val2 The ending value to interpolate to.
+///@param {real} control_point A third value that controls the shape of the interpolation.
+///@param {real} t The position along the bezier curve to sample between 0 and 1, with 0 being equal to val1 and 1 being equal to val2.
+///@returns {real} An interpolated value.
+function bezier(val1, val2, control_point, t) {
+	return lerp(lerp(val1, control_point, t), lerp(control_point, val2, t), t);
 }
 
 #endregion

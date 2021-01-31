@@ -19,7 +19,7 @@ enum report_type {
 ///@func report(type, trace, msg)
 ///@desc Writes an event to the log file, and the console as well if in debug mode.
 ///@param {ReportType} type The type of event.
-///@param {string} trace The origin of the event in the format of "resource/bookmark". Bookmarks are unique 6-character comments.
+///@param {string} trace The origin of the event in the format of "resource/bookmark". Bookmarks are unique 8-character sequences of lowercase letters and numbers.
 ///@param {string} msg The message to be logged.
 function report(type, trace, msg) {
 	// Select the appropriate glyphs for the report type for both the log file and the debug console

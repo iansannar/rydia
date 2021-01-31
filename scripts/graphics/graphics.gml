@@ -20,7 +20,7 @@ global._CAMERA = {
 	x : 0,
 	y : 0,
 	zoom : {
-		zoom_min : math_get_epsilon(), // At this level it's hard to identify objects
+		zoom_min : 0.03, // At this level it's hard to identify objects and the fps drops considerably for some reason
 		zoom_max : 8, // Arbitrary
 		zoom_speed : SECOND / 8, // How fast the camera approaches the zoom level in ms
 		target : 1, // Zoom level to approach
@@ -159,38 +159,38 @@ function update_camera() {
 	// Camera shake channel a
 	if (CAMERA.shake.a.life > 0) {
 		var decay = CAMERA.shake.a.life / CAMERA.shake.a.duration;
-		var m = noise(CAMERA.shake.a.seed.a++, 1 / CAMERA.shake.a.frequency) * CAMERA.shake.a.intensity * decay * decay / CAMERA.zoom.current;
+		var m = noise(CAMERA.shake.a.seed.a++, 1 / CAMERA.shake.a.frequency) * CAMERA.shake.a.intensity * decay / CAMERA.zoom.current;
 		var d = 360 * noise(CAMERA.shake.a.seed.b++, 1 / CAMERA.shake.a.frequency) + 180;
 		delta_x += lengthdir_x(m, d);
 		delta_y += lengthdir_y(m, d);
-		--CAMERA.shake.a.life;
+		CAMERA.shake.a.life -= TIME_DELTA;
 	}
 	// Camera shake channel b
 	if (CAMERA.shake.b.life > 0) {
 		var decay = CAMERA.shake.b.life / CAMERA.shake.b.duration;
-		var m = noise(CAMERA.shake.b.seed.a++, 1 / CAMERA.shake.b.frequency) * CAMERA.shake.b.intensity * decay * decay / CAMERA.zoom.current;
+		var m = noise(CAMERA.shake.b.seed.a++, 1 / CAMERA.shake.b.frequency) * CAMERA.shake.b.intensity * decay / CAMERA.zoom.current;
 		var d = 360 * noise(CAMERA.shake.b.seed.b++, 1 / CAMERA.shake.b.frequency) + 180;
 		delta_x += lengthdir_x(m, d);
 		delta_y += lengthdir_y(m, d);
-		--CAMERA.shake.b.life;
+		CAMERA.shake.b.life -= TIME_DELTA;
 	}
 	// Camera shake channel c
 	if (CAMERA.shake.c.life > 0) {
 		var decay = CAMERA.shake.c.life / CAMERA.shake.c.duration;
-		var m = noise(CAMERA.shake.c.seed.a++, 1 / CAMERA.shake.c.frequency) * CAMERA.shake.c.intensity * decay * decay / CAMERA.zoom.current;
+		var m = noise(CAMERA.shake.c.seed.a++, 1 / CAMERA.shake.c.frequency) * CAMERA.shake.c.intensity * decay / CAMERA.zoom.current;
 		var d = 360 * noise(CAMERA.shake.c.seed.b++, 1 / CAMERA.shake.c.frequency) + 180;
 		delta_x += lengthdir_x(m, d);
 		delta_y += lengthdir_y(m, d);
-		--CAMERA.shake.c.life;
+		CAMERA.shake.c.life -= TIME_DELTA;
 	}
 	// Camera shake channel d
 	if (CAMERA.shake.d.life > 0) {
 		var decay = CAMERA.shake.d.life / CAMERA.shake.d.duration;
-		var m = noise(CAMERA.shake.d.seed.a++, 1 / CAMERA.shake.d.frequency) * CAMERA.shake.d.intensity * decay * decay / CAMERA.zoom.current;
+		var m = noise(CAMERA.shake.d.seed.a++, 1 / CAMERA.shake.d.frequency) * CAMERA.shake.d.intensity * decay / CAMERA.zoom.current;
 		var d = 360 * noise(CAMERA.shake.d.seed.b++, 1 / CAMERA.shake.d.frequency) + 180;
 		delta_x += lengthdir_x(m, d);
 		delta_y += lengthdir_y(m, d);
-		--CAMERA.shake.d.life;
+		CAMERA.shake.d.life -= TIME_DELTA;
 	}
 	
 	if (instance_exists(debug_camera)) {
